@@ -35,11 +35,16 @@ describe Oystercard do
  end
 
  describe '#touch_in' do
+   it 'raises an error when you have minimum amount' do
+     expect { subject.touch_in }.to raise_error "There is not enough money on your card"
+   end
+
    it 'can touch in' do
      expect(subject).to respond_to(:touch_in)
    end
 
    it 'knows when you are in journey' do
+     subject.top_up(10)
      subject.touch_in
      expect(subject.in_journey?).to eq true
    end
@@ -52,7 +57,7 @@ describe Oystercard do
 
    it 'knows when you are in journey' do
      subject.touch_out
-     expect(subject.in_journey?).to eq false 
+     expect(subject.in_journey?).to eq false
    end
  end
 
