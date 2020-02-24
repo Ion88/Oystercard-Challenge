@@ -23,5 +23,38 @@ describe Oystercard do
   end
  end
 
+ describe '#deduct' do
+   it 'can deduct money from card' do
+     expect(subject).to respond_to(:deduct).with(1).argument
+   end
+
+   it 'can take money from the card' do
+     subject.deduct(5)
+     expect(subject.balance).to eq -5
+   end
+ end
+
+ describe '#touch_in' do
+   it 'can touch in' do
+     expect(subject).to respond_to(:touch_in)
+   end
+
+   it 'knows when you are in journey' do
+     subject.touch_in
+     expect(subject.in_journey?).to eq true
+   end
+ end
+
+ describe '#touch_out' do
+   it 'can touch out' do
+     expect(subject).to respond_to(:touch_out)
+   end
+
+   it 'knows when you are in journey' do
+     subject.touch_out
+     expect(subject.in_journey?).to eq false 
+   end
+ end
+
 
 end
