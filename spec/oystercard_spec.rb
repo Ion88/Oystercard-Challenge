@@ -23,17 +23,6 @@ describe Oystercard do
   end
  end
 
- describe '#deduct' do
-   it 'can deduct money from card' do
-     expect(subject).to respond_to(:deduct).with(1).argument
-   end
-
-   it 'can take money from the card' do
-     subject.deduct(5)
-     expect(subject.balance).to eq -5
-   end
- end
-
  describe '#touch_in' do
    it 'raises an error when you have minimum amount' do
      expect { subject.touch_in }.to raise_error "There is not enough money on your card"
@@ -58,6 +47,10 @@ describe Oystercard do
    it 'knows when you are in journey' do
      subject.touch_out
      expect(subject.in_journey?).to eq false
+   end
+
+   it 'deduct money after touch out' do
+     expect {subject.touch_out}.to change{subject.balance}.by(-4)
    end
  end
 
